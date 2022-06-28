@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
+	"github.com/opentracing/opentracing-go/log"
 	"github.com/uber/jaeger-client-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
 	jaegerlog "github.com/uber/jaeger-client-go/log"
@@ -42,6 +43,10 @@ func UseOpentracing() gin.HandlerFunc {
 
 		// 新建一个span，依赖其他进程传递过来的span上下文
 		startSpan := tracer.StartSpan(c.Request.URL.Path, ext.RPCServerOption(spanContext))
+		startSpan.LogFields(
+			log.String("event", "soft error"),
+			log.String("type", "cache timeout"),
+			log.Int("waited.millis", 1500))
 		defer startSpan.Finish()
 
 		// 记录请求 Url
