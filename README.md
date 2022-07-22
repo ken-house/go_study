@@ -8,3 +8,4 @@
 + [OpenTelemetry分布式追踪](./OpenTelemetry)
 + [slice切片](./slice)
 + [静态库](./staticlib)
++ [log日志](./log)和[zap日志](./zap)

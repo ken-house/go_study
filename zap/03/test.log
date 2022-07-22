@@ -1,0 +1,6 @@
+{"level":"ERROR","ts":"2022-07-22T17:01:19.119+0800","caller":"03/main.go:31","msg":"Error fetching url：","url":"www.baidu.com","error":"Get \"www.baidu.com\": unsupported protocol scheme \"\""}
+{"level":"INFO","ts":"2022-07-22T17:01:19.174+0800","caller":"03/main.go:34","msg":"Success..","statusCode":"200 OK","url":"http://www.baidu.com"}
+{"level":"ERROR","ts":"2022-07-22T17:13:54.045+0800","caller":"03/main.go:41","msg":"Error fetching url：","url":"www.baidu.com","error":"Get \"www.baidu.com\": unsupported protocol scheme \"\""}
+{"level":"INFO","ts":"2022-07-22T17:13:54.108+0800","caller":"03/main.go:44","msg":"Success..","statusCode":"200 OK","url":"http://www.baidu.com"}
+{"level":"ERROR","ts":"2022-07-22T17:14:06.793+0800","caller":"03/main.go:41","msg":"Error fetching url：","url":"www.baidu.com","error":"Get \"www.baidu.com\": unsupported protocol scheme \"\""}
+{"level":"INFO","ts":"2022-07-22T17:14:06.842+0800","caller":"03/main.go:44","msg":"Success..","statusCode":"200 OK","url":"http://www.baidu.com"}
