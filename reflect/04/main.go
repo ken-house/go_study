@@ -21,6 +21,8 @@ func main() {
 	}
 
 	rv := reflect.ValueOf(stu)
+	num := rv.NumMethod()
+	fmt.Printf("获取到%d个方法", num)
 	// 获取方法控制权
 	methodValue := rv.MethodByName("Hello")
 	// 拼凑参数
