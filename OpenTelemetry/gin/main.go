@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/sdk/resource"
 	"log"
 	"net/http"
 
@@ -13,6 +14,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/propagation"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 	oteltrace "go.opentelemetry.io/otel/trace"
 )
 
@@ -20,7 +22,7 @@ var tracer = otel.Tracer("gin-server")
 
 // 初始化tracerProvider，并设置为全局tracerProvider
 func initTracer() *sdktrace.TracerProvider {
-	url := "http://192.168.163.131:14268/api/traces"
+	url := "http://10.0.98.16:14268/api/traces"
 	exporter, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(url)))
 	if err != nil {
 		log.Fatal(err)
@@ -28,6 +30,10 @@ func initTracer() *sdktrace.TracerProvider {
 	tp := sdktrace.NewTracerProvider(
 		sdktrace.WithSampler(sdktrace.AlwaysSample()),
 		sdktrace.WithBatcher(exporter),
+		sdktrace.WithResource(resource.NewWithAttributes(
+			semconv.SchemaURL,
+			semconv.ServiceNameKey.String("ginServerDemo"),
+		)),
 	)
 	otel.SetTracerProvider(tp)
 	// 跨进程上下文传播
@@ -44,7 +50,7 @@ func main() {
 	}()
 
 	r := gin.New()
-	r.Use(otelgin.Middleware("my-server"))
+	r.Use(otelgin.Middleware("gin-demo"))
 
 	r.GET("/users/:id", func(c *gin.Context) {
 		id := c.Param("id")
